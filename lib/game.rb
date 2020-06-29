@@ -1,7 +1,10 @@
-require_relative 'display.rb'
+require './display'
+require './colorable'
 
 class Game
   include Display
+  include Colorable 
+
   attr_accessor :players, :current_player_idx, :board
 
   def initialize
@@ -40,7 +43,7 @@ class Game
     board.board.each do |inner|
       inner.each_with_index do |num, idx|
         if num.eql?(@player_choice)
-          inner[idx] = current_player_idx.zero? ? "X".magenta : "O".cyan
+          inner[idx] = current_player_idx.zero? ? magenta("X") : cyan("O")
         end
       end
     end

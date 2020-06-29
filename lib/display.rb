@@ -1,76 +1,52 @@
-class String
-
-  def green
-    "\e[32m#{self}\e[0m"
-  end
-
-  def red
-    "\e[31m#{self}\e[0m"
-  end
-
-  def magenta
-    "\e[35m#{self}\e[0m"
-  end
- 
-  def cyan
-    "\e[36m#{self}\e[0m"
-  end
-
-  def bg_red
-    "\e[41m#{self}\e[0m"
-  end
-
-  def no_colors
-    self.gsub /\e\[\d+m/, ""
-  end
-
-end
+require './colorable'
 
 module Display
+  include Colorable 
+
   def display_intro
-    puts 'Tic-Tac-Toe'.center(80).green
-    puts '-----------'.center(80).green
-    puts "Let's have fun!\n".center(80).green
+    puts green('Tic-Tac-Toe').center(80)
+    puts green('-----------').center(80)
+    puts green("Let's have fun!\n").center(80)
   end
 
   def display_start
-    puts "Let's rock-n-roll!!!".green
+    puts green("Let's rock-n-roll!!!")
   end
 
   def display_name_prompt(player_number)
-    player_number == 1 ? (puts "Who will play X's?".green) : (puts "Who will play O's?".green)
+    player_number == 1 ? (puts green("Who will play X's?")) : (puts green("Who will play O's?"))
   end
 
   def display_good_luck(name)
-    puts "Good luck, #{name}!".green
+    puts green("Good luck, #{name}!")
   end
 
   def display_winner
-    puts "You have won the game, #{current_player.name}! Congratulations!".green
+    puts green("You have won the game, #{current_player.name}! Congratulations!")
   end
 
   def display_tie
-    puts "#{current_player.name} and #{players[next_player].name}, it's a tie!!!".green
+    puts green("#{current_player.name} and #{players[next_player].name}, it's a tie!!!")
   end
 
   def display_error
-    puts "ERROR!".bg_red
-    puts "The position #{@player_choice} is not available. Try again please!".green
+    puts bg_red("ERROR!")
+    puts green("The position #{@player_choice} is not available. Try again please!")
   end
 
   def display_player_turn
-    puts "\nYour turn, #{current_player.name}...\nPlease digit the number of the cell where to place your token:".green
+    print green("\nYour turn, #{current_player.name}...\nPlease digit the number of the cell where to place your token: ")
   end
 
   def display_player_move
-    puts "#{current_player.name} placed his token to the position #{@player_choice}.".green
+    puts green("#{current_player.name} placed his token to the position #{@player_choice}.")
   end
 
   def display_play_again
-    "Would you like to play a new game? Press 'Y' for Yes or 'N' for No.".green
+    green("Would you like to play a new game? Press 'Y' for Yes or 'N' for No.")
   end
 
   def closing_greeting
-    "Thank you for playing! Have a great day, #{current_player.name} and #{players[next_player].name}!".green
+    green("Thank you for playing! Have a great day, #{current_player.name} and #{players[next_player].name}!")
   end
 end
