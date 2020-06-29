@@ -22,7 +22,7 @@ class Game
   end
 
   def valid_move?
-    until @player_choice.between?(1, 9) && board.board.flatten.any?(@player_choice)
+    until board.board.flatten.any?(@player_choice)
       puts display_error
       @player_choice = gets.chomp.to_i
     end
