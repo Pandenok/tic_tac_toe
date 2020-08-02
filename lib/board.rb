@@ -2,7 +2,7 @@ require './lib/display'
 
 class Board
   include Colorable
-  attr_accessor :board
+  attr_reader :board
 
   def initialize
     @board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -16,8 +16,20 @@ class Board
     end
   end
 
+  def place_token(player_input, current_player_idx)
+    token_x = magenta('X')
+    token_o = cyan('O')
+    board.each do |inner|
+      inner.each_with_index do |num, idx|
+        if num.eql?(player_input)
+          inner[idx] = current_player_idx.zero? ? token_x : token_o
+        end
+      end
+    end
+  end
+
   def game_over?
-    horizontal_combo || vertical_combo || diagonal_combo
+    horizontal_combo? || vertical_combo? || diagonal_combo?
   end
 
   def full?
@@ -26,22 +38,18 @@ class Board
 
   private
 
-  def horizontal_combo
+  def horizontal_combo?
     board.any? { |row| row.uniq.size == 1 }
   end
 
-  def vertical_combo
+  def vertical_combo?
     board.transpose.any? { |column| column.uniq.size == 1 }
   end
 
-  def diagonal_combo
-    diagonals = [[board[0][0], board[1][1], board[2][2]], 
-                 [board[0][2], board[1][1], board[2][0]]]
+  def diagonal_combo?
+    first_diagonal = (0..2).map { |i| board[i][i] }
+    second_diagonal = (0..2).map { |i| board.reverse[i][i] }
+    diagonals = [first_diagonal, second_diagonal]
     diagonals.any? { |diagonal| diagonal.uniq.size == 1 }
   end
-
-  # def diagonal_combo
-  #   board[0][0] == board[1][1] && board[0][0] == board[2][2] ||
-  #     board[0][2] == board[1][1] && board[0][2] == board[2][0]
-  # end
 end

@@ -30,8 +30,7 @@ module Display
   end
 
   def display_error
-    puts bg_red("ERROR!")
-    puts green("The position #{@player_input} is not available. Try again please!")
+    print "#{bg_red("ERROR!")} #{red("The position #{@player_input} is not available. Try again please!")}"
   end
 
   def display_player_turn

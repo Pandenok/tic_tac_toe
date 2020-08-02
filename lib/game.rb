@@ -7,7 +7,8 @@ class Game
   include Display
   include Colorable
 
-  attr_accessor :players, :current_player_idx, :board
+  attr_accessor :players, :current_player_idx
+  attr_reader :board
 
   def initialize
     @board = Board.new
@@ -33,9 +34,17 @@ class Game
     print display_player_turn
     @player_input = gets.chomp.to_i
     valid_move?
-    place_token
-    board.show
+    board.place_token(@player_input, current_player_idx)
+    puts display_player_move
     next_player
+    board.show
+  end
+
+  def valid_move?
+    until board.board.flatten.any?(@player_input)
+      puts display_error
+      @player_input = gets.chomp.to_i
+    end
   end
 
   private
@@ -46,26 +55,6 @@ class Game
     create_player(2)
     puts display_start
     board.show
-  end
-
-  def place_token
-    token_x = magenta('X')
-    token_o = cyan('O')
-    board.board.each do |inner|
-      inner.each_with_index do |num, idx|
-        if num.eql?(@player_input)
-          inner[idx] = current_player_idx.zero? ? token_x : token_o
-        end
-      end
-    end
-    puts display_player_move
-  end
-
-  def valid_move?
-    until board.board.flatten.any?(@player_input)
-      puts display_error
-      @player_input = gets.chomp.to_i
-    end
   end
 
   def current_player
