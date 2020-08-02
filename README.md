@@ -12,6 +12,11 @@ Tic-tac-toe (American English), noughts and crosses (British English), or Xs and
 
 ![Tic-Tac_Toe in action](img/tic-tac-toe.gif)
 
+### Version History
+
+2.0: Aug 02, 2020 - Major refactor and automated testing suite
+1.0: Jun 14, 2020 - see "What I learned section" for details
+
 ### Pseudocode
 
 - The board has 9 empty squares
@@ -34,7 +39,7 @@ Tic-tac-toe (American English), noughts and crosses (British English), or Xs and
 
 As always everything seems to make sense through the lessons and reading until you start applying what you’ve learned into projects... 
 
-### [Three Virtues](http://threevirtues.com/)
+### Three Virtues - [read here](http://threevirtues.com/)
 
 ## Object-Oriented Programming (OOP)
 
@@ -78,7 +83,7 @@ Rubocop pre-commit hook for Git: [text](https://devsimple.ru/posts/rubocop/) or 
 
 ## CLI Styling
 
-### [Colorized output to the terminal](https://stackoverflow.com/questions/1489183/colorized-ruby-output-to-the-terminal)
+### Colorized output to the terminal - [Stack Overflow](https://stackoverflow.com/questions/1489183/colorized-ruby-output-to-the-terminal)
 
 ### Tabular Output in Console
 
