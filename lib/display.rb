@@ -1,4 +1,4 @@
-require './colorable'
+require './lib/colorable'
 
 module Display
   include Colorable 
@@ -14,7 +14,7 @@ module Display
   end
 
   def display_name_prompt(player_number)
-    player_number == 1 ? (puts green("Who will play X's?")) : (puts green("Who will play O's?"))
+    player_number == 1 ? (print green("Who will play X's?")) : (print green("Who will play O's?"))
   end
 
   def display_good_luck(name)
@@ -31,7 +31,7 @@ module Display
 
   def display_error
     puts bg_red("ERROR!")
-    puts green("The position #{@player_choice} is not available. Try again please!")
+    puts green("The position #{@player_input} is not available. Try again please!")
   end
 
   def display_player_turn
@@ -39,14 +39,14 @@ module Display
   end
 
   def display_player_move
-    puts green("#{current_player.name} placed his token to the position #{@player_choice}.")
+    puts green("#{current_player.name} placed his token to the position #{@player_input}.")
   end
 
   def display_play_again
     green("Would you like to play a new game? Press 'Y' for Yes or 'N' for No.")
   end
 
-  def closing_greeting
+  def display_farewell
     green("Thank you for playing! Have a great day, #{current_player.name} and #{players[next_player].name}!")
   end
 end

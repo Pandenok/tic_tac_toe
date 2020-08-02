@@ -1,5 +1,4 @@
-require './display'
-require './colorable'
+require './lib/display'
 
 class Board
   include Colorable
@@ -18,15 +17,31 @@ class Board
   end
 
   def game_over?
-    board.any? { |line| line.eql?([magenta("X"), magenta("X"), magenta("X")]) || 
-        line.eql?([cyan("O"), cyan("O"), cyan("O")]) } ||
-      board.transpose.any? { |line| line.eql?([magenta("X"), magenta("X"), magenta("X")]) || 
-        line.eql?([cyan("O"), cyan("O"), cyan("O")]) } ||
-      board[0][0] == board[1][1] && board[0][0] == board[2][2] ||
-      board[0][2] == board[1][1] && board[0][2] == board[2][0]
+    horizontal_combo || vertical_combo || diagonal_combo
   end
 
   def full?
     board.all? { |line| line.all?(/\D/) }
   end
+
+  private
+
+  def horizontal_combo
+    board.any? { |row| row.uniq.size == 1 }
+  end
+
+  def vertical_combo
+    board.transpose.any? { |column| column.uniq.size == 1 }
+  end
+
+  def diagonal_combo
+    diagonals = [[board[0][0], board[1][1], board[2][2]], 
+                 [board[0][2], board[1][1], board[2][0]]]
+    diagonals.any? { |diagonal| diagonal.uniq.size == 1 }
+  end
+
+  # def diagonal_combo
+  #   board[0][0] == board[1][1] && board[0][0] == board[2][2] ||
+  #     board[0][2] == board[1][1] && board[0][2] == board[2][0]
+  # end
 end

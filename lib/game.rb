@@ -1,53 +1,71 @@
-require './display'
-require './colorable'
+# frozen_string_literal: true
+
+require './lib/display'
+require './lib/colorable'
 
 class Game
   include Display
-  include Colorable 
+  include Colorable
 
   attr_accessor :players, :current_player_idx, :board
 
   def initialize
-    print display_intro
+    @board = Board.new
     @players = []
     @current_player_idx = 0
-    @game_over = false
-    create_player(1)
-    create_player(2)
-    play_game
+  end
+
+  def play
+    configure_new_game
+    make_move until board.game_over? || board.full?
+    game_finished?
+    repeat_game
   end
 
   def create_player(player_number)
-    print display_name_prompt(player_number)
+    puts display_name_prompt(player_number)
     name = gets.chomp.capitalize
     @players.push(Player.new(name))
-    print display_good_luck(name)
-  end
-
-  def valid_move?
-    until board.board.flatten.any?(@player_choice)
-      puts display_error
-      @player_choice = gets.chomp.to_i
-    end
+    puts display_good_luck(name)
   end
 
   def make_move
     print display_player_turn
-    @player_choice = gets.chomp.to_i
+    @player_input = gets.chomp.to_i
     valid_move?
     place_token
+    board.show
+    next_player
+  end
+
+  private
+
+  def configure_new_game
+    puts display_intro
+    create_player(1)
+    create_player(2)
+    puts display_start
     board.show
   end
 
   def place_token
+    token_x = magenta('X')
+    token_o = cyan('O')
     board.board.each do |inner|
       inner.each_with_index do |num, idx|
-        if num.eql?(@player_choice)
-          inner[idx] = current_player_idx.zero? ? magenta("X") : cyan("O")
+        if num.eql?(@player_input)
+          inner[idx] = current_player_idx.zero? ? token_x : token_o
         end
       end
     end
     puts display_player_move
+  end
+
+  def valid_move?
+    until board.board.flatten.any?(@player_input)
+      puts display_error
+      @player_input = gets.chomp.to_i
+    end
   end
 
   def current_player
@@ -59,31 +77,18 @@ class Game
   end
 
   def game_finished?
-    if board.game_over?
-        @game_over = true
-        puts display_winner
-      elsif board.full?
-        @game_over = true
-        puts display_tie
-      else
-        next_player
-    end
-  end
-
-  def play_game
-    puts display_start
-    @board = Board.new
-    @board.show
-    until @game_over do
-      make_move
-      game_finished?
-    end
-    repeat_game
+    puts display_winner if board.game_over?
+    puts display_tie if board.full?
   end
 
   def repeat_game
     puts display_play_again
     repeat_game = gets.chomp.upcase
-    repeat_game.eql?('Y') ? (Game.new) : (puts closing_greeting)
+    if repeat_game.eql?('Y')
+      game = Game.new
+      game.play
+    else
+      puts display_farewell
+    end
   end
 end
