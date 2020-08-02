@@ -20,15 +20,17 @@ describe Game do
 
   describe '#make_move' do
     context 'when making a move' do
-      it 'shows updated board with a token placed' do
+      it 'sends a message to the Board with player input' do
         @player_input = '5'
+        current_player_idx = 0
 
         allow(test_game).to receive(:puts)
         allow(test_game).to receive(:display_player_turn)
         allow(test_game).to receive(:gets).and_return(@player_input)
-        allow(test_game).to receive(:place_token)
+        allow(test_game).to receive(:display_player_move)
+        allow(test_game.board).to receive(:show)
 
-        expect(test_game.board).to receive(:show)
+        expect(test_game.board).to receive(:place_token)
         test_game.make_move
       end
     end

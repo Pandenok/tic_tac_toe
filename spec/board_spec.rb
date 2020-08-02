@@ -1,33 +1,65 @@
 require './lib/board'
 
 describe Board do
-  subject(:test) { described_class.new }
+  subject(:test_board) { described_class.new }
 
-  context 'when reads three identical tokens across the row' do
-    it 'is game over' do
-      test.instance_variable_set(:@board, [%w[X X X], [4, 5, 6], [7, 8, 9]])
-      expect(test).to be_game_over
-    end
-  end
-  
-  context 'when reads three identical tokens across the column' do
-    it 'is game over' do
-      test.instance_variable_set(:@board, [["X", 2, 3], ["X", 5, 6], ["X", 8, 9]])
-      expect(test).to be_game_over
-    end
-  end
-  
-  context 'when reads three identical tokens across the diagonal' do
-    it 'is game over' do
-      test.instance_variable_set(:@board, [["X", 2, 3], [4, "X", 6], [7, 8, "X"]])
-      expect(test).to be_game_over
+  describe "#place_token" do
+    context 'when receives a call from Game with player\'s move' do
+      it 'updates the board by placing a token' do
+        player_input = 5
+        current_player_idx = 0
+        updated_board = [[1, 2, 3], [4, "\e[35mX\e[0m", 6], [7, 8, 9]]
+
+        test_board.place_token(player_input, current_player_idx)
+        expect(test_board.board).to eq(updated_board)
+      end
     end
   end
 
-  context 'when no more space available to place a token' do 
-    it 'is full' do
-      test.instance_variable_set(:@board, [["O", "X", "O"], ["X", "X", "O"], ["O", "O", "X"]])
-      expect(test).to be_full
+  describe "#game_over?" do
+    context 'when reads three identical tokens across the row' do
+      it 'is game over' do
+        test_board.instance_variable_set(:@board, [%w[X X X], [4, 5, 6], [7, 8, 9]])
+        expect(test_board).to be_game_over
+      end
+    end
+
+    context 'when reads three identical tokens across the column' do
+      it 'is game over' do
+        test_board.instance_variable_set(:@board, [["X", 2, 3], ["X", 5, 6], ["X", 8, 9]])
+        expect(test_board).to be_game_over
+      end
+    end
+
+    context 'when reads three identical tokens across the diagonal' do
+      it 'is game over' do
+        test_board.instance_variable_set(:@board, [["X", 2, 3], [4, "X", 6], [7, 8, "X"]])
+        expect(test_board).to be_game_over
+      end
+    end
+
+    context 'when there is no sequence of three identical tokens' do
+      it 'is not game over' do
+        test_board.instance_variable_set(:@board, [["X", "X", "O"], ["O", "X", "X"], ["X", "O", "O"]])
+        expect(test_board).to_not be_game_over
+      end
+    end
+
+  end
+
+  describe "#full?" do
+    context 'when no more space available to place a token' do 
+      it 'is full' do
+        test_board.instance_variable_set(:@board, [["X", "X", "O"], ["X", "X", "O"], ["O", "O", "X"]])
+        expect(test_board).to be_full
+      end
+    end
+
+    context 'when there is space to place a token' do
+      it 'is not full' do
+        test_board.instance_variable_set(:@board, [[1, 2, 3], [4, "X", 6], [7, 8, "X"]])
+        expect(test_board).to_not be_full
+      end
     end
   end
 end
