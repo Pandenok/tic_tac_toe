@@ -14,9 +14,9 @@ Tic-tac-toe (American English), noughts and crosses (British English), or Xs and
 
 ### Version History
 
-2.0: Aug 02, 2020 - Major refactor and automated testing suite
+**2.0:** Aug 02, 2020 - Major refactor and automated testing suite
 
-1.0: Jun 14, 2020 - see "What I learned section" for details
+**1.0:** Jun 14, 2020 - see "What I learned section" for details
 
 ### Pseudocode
 
@@ -49,13 +49,12 @@ As always everything seems to make sense through the lessons and reading until y
 ### Classes, Objects and Methods
 
 Although I’m understanding how classes operate, how to create new objects (instances), and how to get and set functionality, I was struggling with the concept. Why do I need Classes if I can build a solution without them at all? Here is the answer from Erik Trautman: 
-```text
-"When you find that you want the same method to be run on a bunch of different objects without having to make a bunch of different if/else or case statements, you should start thinking about using a class."
-```
-Erik on Classes, Objects and Methods
-```text
-"Classes are like umbrellas that let us give an object general behaviors just based on what it is. An object is an instance of a class -- you (yes, you) are an instance of the Person class. There are lots of behaviors (methods) that you can do just by virtue of being a Person... #laugh, #jump, speak("hello")"
-```
+
+> "When you find that you want the same method to be run on a bunch of different objects without having to make a bunch of different if/else or case statements, you should start thinking about using a class."
+
+Erik on Classes, Objects and Methods:
+
+>"Classes are like umbrellas that let us give an object general behaviors just based on what it is. An object is an instance of a class -- you (yes, you) are an instance of the Person class. There are lots of behaviors (methods) that you can do just by virtue of being a Person... #laugh, #jump, speak("hello")"
 
 Instant of a Class is what the programm **has**
 
