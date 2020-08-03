@@ -16,6 +16,28 @@ describe Board do
     end
   end
 
+  describe "#valid_move?" do
+    context 'when the input value is found on the board' do
+      it 'is a valid move' do
+        player_input = 5
+        test_board.instance_variable_set(:@board, [["X", "X", "O"], ["O", 5, "X"], ["X", "O", "O"]])
+        player_move = test_board.valid_move?(player_input)
+        
+        expect(player_move).to be true
+      end
+    end
+
+    context 'when the input value is not on the board' do
+      it 'is not a valid move' do
+        player_input = 45
+        test_board.instance_variable_set(:@board, [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        player_move = test_board.valid_move?(player_input)
+        
+        expect(player_move).to be false
+      end
+    end
+  end
+
   describe "#game_over?" do
     context 'when reads three identical tokens across the row' do
       it 'is game over' do
