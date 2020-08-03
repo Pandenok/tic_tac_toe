@@ -31,9 +31,13 @@ class Game
 
   def make_move
     print display_player_turn
-    @player_input = gets.chomp.to_i 
-    if board.valid_move?(@player_input)
-      board.place_token(@player_input, current_player_idx)
+    @player_input = gets.chomp.to_i
+    player_move(@player_input)
+  end
+
+  def player_move(player_input)
+    if board.valid_move?(player_input)
+      board.place_token(player_input, current_player_idx)
       puts display_player_move
       next_player
       board.show
