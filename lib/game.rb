@@ -7,8 +7,7 @@ class Game
   include Display
   include Colorable
 
-  attr_accessor :players, :current_player_idx
-  attr_reader :board
+  attr_reader :players, :current_player_idx, :board
 
   def initialize
     @board = Board.new
@@ -32,18 +31,14 @@ class Game
 
   def make_move
     print display_player_turn
-    @player_input = gets.chomp.to_i
-    valid_move?
-    board.place_token(@player_input, current_player_idx)
-    puts display_player_move
-    next_player
-    board.show
-  end
-
-  def valid_move?
-    until board.board.flatten.any?(@player_input)
+    @player_input = gets.chomp.to_i 
+    if board.valid_move?(@player_input)
+      board.place_token(@player_input, current_player_idx)
+      puts display_player_move
+      next_player
+      board.show
+    else
       puts display_error
-      @player_input = gets.chomp.to_i
     end
   end
 
