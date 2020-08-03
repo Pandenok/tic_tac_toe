@@ -14,7 +14,7 @@ Tic-tac-toe (American English), noughts and crosses (British English), or Xs and
 
 ### Version History
 
-**2.0:** Aug 02, 2020 - Major refactor and automated testing suite (HUGE thanks to [@rlmoser](https://github.com/rlmoser99))
+**2.0:** Aug 02, 2020 - Major refactor and automated testing suite (HUGE thanks to [@rlmoser99](https://github.com/rlmoser99))
 
 **1.0:** Jun 14, 2020 - see "What I learned section" for details
 
