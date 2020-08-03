@@ -2,6 +2,8 @@ require './lib/display'
 
 class Board
   include Colorable
+  include Display
+
   attr_reader :board
 
   def initialize
@@ -17,15 +19,17 @@ class Board
   end
 
   def place_token(player_input, current_player_idx)
-    token_x = magenta('X')
-    token_o = cyan('O')
     board.each do |inner|
       inner.each_with_index do |num, idx|
         if num.eql?(player_input)
-          inner[idx] = current_player_idx.zero? ? token_x : token_o
+          inner[idx] = current_player_idx.zero? ? magenta('X') : cyan('O')
         end
       end
     end
+  end
+
+  def valid_move?(player_input)
+    board.flatten.any?(player_input)
   end
 
   def game_over?
